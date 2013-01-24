@@ -9,6 +9,7 @@ require File.dirname(__FILE__) + "/crowdtilt/bank"
 require File.dirname(__FILE__) + "/crowdtilt/campaign"
 require File.dirname(__FILE__) + "/crowdtilt/card"
 require File.dirname(__FILE__) + "/crowdtilt/user"
+require File.dirname(__FILE__) + "/crowdtilt/verification"
 
 module Crowdtilt
 
