@@ -60,7 +60,7 @@ Bound to be some issues since there's barely any specs.  Feel free to submit an 
 * [✓] GET /users
 * [✓] PUT /users/:id
 * [✓] GET /users/:id/campaigns
-* [e] GET /users/:id/campaigns/:id
+* [✓] GET /users/:id/campaigns/:id
 * [ ] GET /users/:id/paid_campaigns
 * [✓] POST /users/:id/cards
 * [✓] GET /users/:id/cards/:id
