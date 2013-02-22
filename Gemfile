@@ -1,8 +1,10 @@
-source :rubygems
+source 'https://rubygems.org'
+
+gemspec
 
 gem 'rake'
-gemspec
 
 group :test do
   gem 'rspec'
 end
+

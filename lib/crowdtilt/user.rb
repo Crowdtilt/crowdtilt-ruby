@@ -11,7 +11,8 @@ module Crowdtilt
     def create_json
       { "user" => { "firstname" => firstname,
                     "lastname"  => lastname,
-                    "email"     => email } }
+                    "email"     => email,
+                    "metadata"  => metadata } }
     end
     alias_method :update_json, :create_json
 
@@ -35,9 +36,21 @@ module Crowdtilt
       Crowdtilt::UserCampaignsArray.new self, Crowdtilt.get("/users/#{id}/campaigns").body['campaigns'].map{|h| Crowdtilt::Campaign.new(h)}
     end
 
+    def card(params)
+      card = Crowdtilt::Card.new params.merge(user: self)
+      card.save
+      card
+    end
+
     def cards
       raise "Can't load cards for a user without an ID" unless id
-      Crowdtilt::CardsArray.new self, Crowdtilt.get("/users/#{id}/cards").body['cards'].map{|h| Crowdtilt::Card.new(h)}
+      Crowdtilt::CardsArray.new self, Crowdtilt.get("/users/#{id}/cards").body['cards'].map{|h| Crowdtilt::Card.new(h.merge(:user => self.as_json))}
+    end
+    
+    def bank(params)
+      bank = Crowdtilt::Bank.new params.merge(user: self)
+      bank.save
+      bank
     end
 
     def banks
@@ -48,5 +61,22 @@ module Crowdtilt
     def payments
       Crowdtilt.get("/users/#{id}/payments").body['payments'].map{|h| Crowdtilt::Payment.new(h)}
     end
+    
+    def verify(params = {})
+      if @is_verified == 0
+        verification = Crowdtilt::Verification.new :user => self, :name => params[:name], :dob => params[:dob], 
+                                                   :phone_number => params[:phone_number], :street_address => params[:street_address], 
+                                                   :postal_code => params[:postal_code]
+        if verification.save
+          @is_verified = 1
+          true
+        else
+          false
+        end
+      else
+        true
+      end
+    end
+    
   end
 end

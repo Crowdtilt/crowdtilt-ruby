@@ -4,7 +4,7 @@ describe "Configuring" do
   it "should exception if configuration hasn't happened" do
     expect {
       Crowdtilt.config
-    }.to raise_error("Crowdtilt not initialize, please configure using Crowdtilt.configure")
+    }.to raise_error("Crowdtilt not initialized, please configure using Crowdtilt.configure")
   end
 
   describe "defaults" do

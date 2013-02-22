@@ -10,6 +10,7 @@ require File.dirname(__FILE__) + "/crowdtilt/campaign"
 require File.dirname(__FILE__) + "/crowdtilt/card"
 require File.dirname(__FILE__) + "/crowdtilt/user"
 require File.dirname(__FILE__) + "/crowdtilt/verification"
+require File.dirname(__FILE__) + "/crowdtilt/payment"
 
 module Crowdtilt
 
@@ -20,7 +21,7 @@ module Crowdtilt
 
     def config
       if @config.nil?
-        raise "Crowdtilt not initialize, please configure using Crowdtilt.configure"
+        raise "Crowdtilt not initialized, please configure using Crowdtilt.configure"
       end
       @config
     end
@@ -39,11 +40,13 @@ module Crowdtilt
       
       res = conn.send method.to_sym, *args
       
-      puts 
-      puts "#{method.to_s.upcase} #{args[0]} #{args[1]}"
-      puts "Response #{res.status}"
-      puts res.body if res.body
-      puts
+      if config.env == "development"
+        puts 
+        puts "#{method.to_s.upcase} #{args[0]} #{args[1]}"
+        puts "Response #{res.status}"
+        puts res.body if res.body
+        puts
+      end
       
       case res.status
       when 400...499

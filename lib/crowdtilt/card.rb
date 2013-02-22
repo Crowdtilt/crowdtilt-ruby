@@ -12,7 +12,8 @@ module Crowdtilt
       { "card" => { "expiration_month" => expiration_month,
                     "expiration_year"  => expiration_year,
                     "number"           => number,
-                    "security_code"    => security_code } }
+                    "security_code"    => security_code,
+                    "metadata"         => metadata } }
     end
 
     def update_json

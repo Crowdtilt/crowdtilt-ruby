@@ -11,7 +11,8 @@ module Crowdtilt
     def create_json
       { "bank" => { "account_number" => account_number,
                     "name"           => name,
-                    "bank_code"      => bank_code } }
+                    "bank_code"      => bank_code,
+                    "metadata"       => metadata } }
     end
 
     def update_json
