@@ -37,6 +37,7 @@ module Crowdtilt
     end
 
     def card(params)
+      raise "Can't create a card for a user without an ID" unless id
       card = Crowdtilt::Card.new params.merge(user: self)
       card.save
       card
@@ -48,6 +49,7 @@ module Crowdtilt
     end
     
     def bank(params)
+      raise "Can't create a bank for a user without an ID" unless id
       bank = Crowdtilt::Bank.new params.merge(user: self)
       bank.save
       bank
@@ -57,12 +59,19 @@ module Crowdtilt
       raise "Can't load banks for a user without an ID" unless id
       Crowdtilt::BanksArray.new self, Crowdtilt.get("/users/#{id}/banks").body['banks'].map{|h| Crowdtilt::Bank.new(h)}
     end
+    
+    def default_bank
+      raise "Can't load the default bank for a user without an ID" unless id
+      Crowdtilt::Bank.new Crowdtilt.get("/users/#{id}/banks/default")
+    end
 
     def payments
+      raise "Can't load payments for a user without an ID" unless id
       Crowdtilt.get("/users/#{id}/payments").body['payments'].map{|h| Crowdtilt::Payment.new(h)}
     end
     
     def verify(params = {})
+      raise "Can't verify a user without an ID" unless id
       verified? ? true : Crowdtilt.post("/users/#{id}/verification", verification: params)
     end
     

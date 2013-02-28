@@ -18,6 +18,11 @@ module Crowdtilt
     def update_json
       { "bank" => { "metadata" => metadata } }
     end
+    
+    def set_as_default
+      Crowdtilt::Bank.new Crowdtilt.post("/users/#{user.id}/banks/default", params).body['bank'].merge(:user => user)
+    end
+    
   end
 
   class BanksArray < Array
