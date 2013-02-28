@@ -57,7 +57,7 @@ module Crowdtilt
     
     def get_bank(bank_id)
       raise "Can't load bank for a user without an ID" unless id
-      Crowdtilt::Bank.new Crowdtilt.get("/users/#{id}/banks/#{bank_id}")
+      Crowdtilt::Bank.new Crowdtilt.get("/users/#{id}/banks/#{bank_id}").body['bank'].merge(:user => self)
     end
      
     def get_banks
@@ -67,7 +67,7 @@ module Crowdtilt
     
     def get_default_bank
       raise "Can't load the default bank for a user without an ID" unless id
-      Crowdtilt::Bank.new Crowdtilt.get("/users/#{id}/banks/default")
+      Crowdtilt::Bank.new Crowdtilt.get("/users/#{id}/banks/default").body['bank'].merge(:user => self)
     end
 
     def payments
