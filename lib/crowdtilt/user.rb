@@ -63,19 +63,7 @@ module Crowdtilt
     end
     
     def verify(params = {})
-      if @is_verified == 0
-        verification = Crowdtilt::Verification.new :user => self, :name => params[:name], :dob => params[:dob], 
-                                                   :phone_number => params[:phone_number], :street_address => params[:street_address], 
-                                                   :postal_code => params[:postal_code]
-        if verification.save
-          @is_verified = 1
-          true
-        else
-          false
-        end
-      else
-        true
-      end
+      verified? ? true : Crowdtilt.post("/users/#{id}/verification", verification: params)
     end
     
   end

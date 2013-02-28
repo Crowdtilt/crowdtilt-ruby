@@ -6,7 +6,7 @@ module Crowdtilt
       errors.add :user, "can not be nil" and return false if user.nil?
       Crowdtilt.post("/users/#{user.id}/verification", 
                      verification: {
-                       name: user.name,
+                       name: name,
                        dob:  dob,
                        phone_number: phone_number,
                        street_address: street_address,
