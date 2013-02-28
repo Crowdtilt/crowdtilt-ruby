@@ -1,8 +1,9 @@
 module Crowdtilt
   class Bank < Model
-    attr_accessor :account_number, :name, :bank_code, :account_number_last_four,
-                  :bank_code_last_four, :id, :is_valid, :metadata, :name, :user,
-                  :user_uri, :uri
+    attr_accessor :name, :account_number_last_four, :bank_code_last_four, :id, 
+                  :is_default, :metadata, :name, :user, :uri, :user_uri
+    
+    attr_accessor :account_number, :bank_code #fields only needed for resource creation
 
     uri_prefix '/users/#{user.id}/banks'
 
@@ -20,7 +21,7 @@ module Crowdtilt
     end
     
     def set_as_default
-      Crowdtilt::Bank.new Crowdtilt.post("/users/#{user.id}/banks/default", params).body['bank'].merge(:user => user)
+      Crowdtilt::Bank.new Crowdtilt.post("/users/#{user.id}/banks/default", bank: { id: id }).body['bank'].merge(:user => user)
     end
     
   end

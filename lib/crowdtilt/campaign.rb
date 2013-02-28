@@ -12,7 +12,9 @@ module Crowdtilt
     attr_accessor :admin, :creation_date, :description, :expiration_date, :fixed_payment_amount, :first_contributor, 
                   :id, :img, :is_tilted, :is_paid, :is_expired, :metadata, :min_payment_amount,
                   :modification_date, :payments_uri, :privacy, :settlements_uri, :stats, :tax_id,
-                  :tax_name, :tilter, :tilt_amount, :title, :type, :user_id, :uri
+                  :tax_name, :tilter, :tilt_amount, :title, :type, :uri
+                  
+    attr_accessor :user_id #fields only needed for resource creation
 
     coerce :admin => 'Crowdtilt::User'
     coerce :tilter => 'Crowdtilt::User'

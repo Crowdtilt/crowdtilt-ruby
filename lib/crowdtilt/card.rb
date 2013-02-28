@@ -1,8 +1,9 @@
 module Crowdtilt
   class Card < Model
-    attr_accessor :expiration_month, :expiration_year, :number,
-                  :security_code, :card_type, :creation_date, :id,
+    attr_accessor :expiration_month, :expiration_year,:card_type, :creation_date, :id,
                   :last_four, :metadata, :user, :uri
+    
+    attr_accessor :number, :security_code #fields only needed for resource creation
 
     coerce :user => 'Crowdtilt::User'
 
