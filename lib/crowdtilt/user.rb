@@ -48,19 +48,24 @@ module Crowdtilt
       Crowdtilt::CardsArray.new self, Crowdtilt.get("/users/#{id}/cards").body['cards'].map{|h| Crowdtilt::Card.new(h.merge(:user => self.as_json))}
     end
     
-    def bank(params)
+    def create_bank(params)
       raise "Can't create a bank for a user without an ID" unless id
       bank = Crowdtilt::Bank.new params.merge(user: self)
       bank.save
       bank
     end
-
-    def banks
+    
+    def get_bank(bank_id)
+      raise "Can't load bank for a user without an ID" unless id
+      Crowdtilt::Bank.new Crowdtilt.get("/users/#{id}/banks/#{bank_id}")
+    end
+     
+    def get_banks
       raise "Can't load banks for a user without an ID" unless id
       Crowdtilt::BanksArray.new self, Crowdtilt.get("/users/#{id}/banks").body['banks'].map{|h| Crowdtilt::Bank.new(h.merge(:user => self.as_json))}
     end
     
-    def default_bank
+    def get_default_bank
       raise "Can't load the default bank for a user without an ID" unless id
       Crowdtilt::Bank.new Crowdtilt.get("/users/#{id}/banks/default")
     end
