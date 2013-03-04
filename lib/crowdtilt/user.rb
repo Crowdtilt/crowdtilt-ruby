@@ -4,9 +4,9 @@ module Crowdtilt
     uri_prefix '/users'
     
     attr_accessor :id, :name, :firstname, :lastname, :email,
-                  :is_verified, :img, :creation_date, :last_login_date,
+                  :is_verified, :creation_date, :modification_date,
                   :uri, :campaigns_uri, :paid_campaigns_uri, :payments_uri,
-                  :metadata
+                  :cards_uri, :banks_uri, :metadata
 
     def create_json
       { "user" => { "firstname" => firstname,
