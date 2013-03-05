@@ -36,9 +36,12 @@ module Crowdtilt
                         "metadata"         => metadata } }
     end
 
-    def payments
+    def payments(page = 1, per_page = 50)
       raise "Can't verify a user without an ID" unless id
-      Crowdtilt::PaymentsArray.new self, Crowdtilt.get("/campaigns/#{id}/payments").body['payments'].map{|h| Crowdtilt::Payment.new(h)}
+      
+      payments = Crowdtilt.get("/campaigns/#{id}/payments?page=#{page}&per_page=#{per_page}")
+      
+      Crowdtilt::PaymentsArray.new self, payments.body['payments'].map{|h| Crowdtilt::Payment.new(h)}, payments.body['pagination']
     end
   end
 

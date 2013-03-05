@@ -34,10 +34,11 @@ module Crowdtilt
   end
 
   class PaymentsArray < Array
-    attr_reader :campaign
-    def initialize(campaign, payments)
+    attr_reader :campaign, :pagination
+    def initialize(campaign, payments, pagination)
       super payments
       @campaign = campaign
+      @pagination = pagination
     end
 
     def find(id)
