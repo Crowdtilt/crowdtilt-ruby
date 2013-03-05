@@ -15,7 +15,7 @@ module Crowdtilt
     end
 
     def env(val=nil)
-      if val and not ['development','production'].include? val
+      if val and not ['local', 'development','production'].include? val
         raise "Unknown env '#{env}'"
       end
       @env ||= (val || "development")
@@ -24,6 +24,8 @@ module Crowdtilt
 
     def url
       case env
+      when "local"
+        'http://localhost:5003'
       when "development"
         'https://api-sandbox.crowdtilt.com'
       when "production"

@@ -39,7 +39,7 @@ module Crowdtilt
       
       res = conn.send method.to_sym, *args
       
-      if config.env == "development"
+      if config.env == "development" || config.env == "local"
         puts 
         puts "#{method.to_s.upcase} #{args[0]} #{args[1]}"
         puts "Response #{res.status}"
