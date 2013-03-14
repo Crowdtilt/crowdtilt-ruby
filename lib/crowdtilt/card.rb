@@ -1,6 +1,6 @@
 module Crowdtilt
   class Card < Model
-    attr_accessor :expiration_month, :expiration_year,:card_type, :creation_date, :id,
+    attr_accessor :expiration_month, :expiration_year,:card_type, :creation_date, :modification_date, :id,
                   :last_four, :metadata, :user, :uri
     
     attr_accessor :number, :security_code #fields only needed for resource creation
@@ -30,7 +30,7 @@ module Crowdtilt
     end
 
     def find(id)
-      Crowdtilt::Card.new Crowdtilt.get("/users/#{user.id}/cards/"+id).body['card'].merge(:user => user)
+      Crowdtilt::Card.new Crowdtilt.get("/users/#{user.id}/cards/"+id).body['card']
     end
 
     def build(params)

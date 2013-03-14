@@ -45,7 +45,7 @@ module Crowdtilt
 
     def cards
       raise "Can't load cards for a user without an ID" unless id
-      Crowdtilt::CardsArray.new self, Crowdtilt.get("/users/#{id}/cards").body['cards'].map{|h| Crowdtilt::Card.new(h.merge(:user => self.as_json))}
+      Crowdtilt::CardsArray.new self, Crowdtilt.get("/users/#{id}/cards").body['cards'].map{|h| Crowdtilt::Card.new(h)}
     end
     
     def create_bank(params)
