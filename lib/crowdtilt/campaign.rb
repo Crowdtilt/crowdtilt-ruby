@@ -9,31 +9,29 @@ module Crowdtilt
 
     uri_prefix '/campaigns'
 
-    attr_accessor :admin, :creation_date, :description, :expiration_date, :fixed_payment_amount, :first_contributor, 
-                  :id, :img, :is_tilted, :is_paid, :is_expired, :metadata, :min_payment_amount,
-                  :modification_date, :payments_uri, :privacy, :settlements_uri, :stats, :tax_id,
-                  :tax_name, :tilter, :tilt_amount, :title, :type, :uri
+    attr_accessor :admin, :creation_date, :expiration_date, :first_contributor, :fixed_payment_amount, :id,
+                  :is_expired, :is_paid, :is_tilted, :metadata, :min_payment_amount, :modification_date,
+                  :payments_uri, :settlements_uri, :stats, :tilt_amount, :tilter, :title, :uri
                   
     attr_accessor :user_id #fields only needed for resource creation
 
     coerce :admin => 'Crowdtilt::User'
+    coerce :first_contributor => 'Crowdtilt::User'
     coerce :tilter => 'Crowdtilt::User'
 
     def create_json
-      { "campaign" => { "user_id"          => user_id,
-                        "title"            => title,
-                        "description"      => description,
-                        "expiration_date"  => expiration_date,
-                        "tilt_amount"      => tilt_amount,
-                        "metadata"         => metadata } }
+      { "campaign" => { "user_id"              => user_id,
+                        "title"                => title,
+                        "expiration_date"      => expiration_date,
+                        "tilt_amount"          => tilt_amount,
+                        "metadata"             => metadata } }
     end
     
     def update_json
-      { "campaign" => { "title"            => title,
-                        "description"      => description,
-                        "expiration_date"  => expiration_date,
-                        "tilt_amount"      => tilt_amount, 
-                        "metadata"         => metadata } }
+      { "campaign" => { "title"                => title,
+                        "expiration_date"      => expiration_date,
+                        "tilt_amount"          => tilt_amount,
+                        "metadata"             => metadata } }
     end
 
     def payments(page = 1, per_page = 50)

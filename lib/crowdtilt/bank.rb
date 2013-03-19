@@ -1,7 +1,7 @@
 module Crowdtilt
   class Bank < Model
     attr_accessor :name, :account_number_last_four, :bank_code_last_four, :id, 
-                  :is_default, :metadata, :name, :user, :uri, :user_uri
+                  :is_default, :metadata, :user, :uri, :creation_date, :modification_date
     
     attr_accessor :account_number, :bank_code #fields only needed for resource creation
 
@@ -34,7 +34,7 @@ module Crowdtilt
     end
 
     def find(id)
-      Crowdtilt::Bank.new Crowdtilt.get("/users/#{user.id}/banks/"+id).body['bank'].merge(:user => user)
+      Crowdtilt::Bank.new Crowdtilt.get("/users/#{user.id}/banks/"+id).body['bank']
     end
 
     def build(params)
