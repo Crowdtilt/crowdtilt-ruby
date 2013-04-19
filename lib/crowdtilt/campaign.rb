@@ -9,7 +9,7 @@ module Crowdtilt
 
     uri_prefix '/campaigns'
 
-    attr_accessor :admin, :creation_date, :description, :expiration_date, :fixed_payment_amount, :first_contributor, 
+    attr_accessor :admin, :creation_date, :expiration_date, :fixed_payment_amount, :first_contributor, 
                   :id, :img, :is_tilted, :is_paid, :is_expired, :metadata, :min_payment_amount,
                   :modification_date, :payments_uri, :privacy, :settlements_uri, :stats, :tax_id,
                   :tax_name, :tilter, :tilt_amount, :title, :type, :uri
@@ -22,7 +22,6 @@ module Crowdtilt
     def create_json
       { "campaign" => { "user_id"          => user_id,
                         "title"            => title,
-                        "description"      => description,
                         "expiration_date"  => expiration_date,
                         "tilt_amount"      => tilt_amount,
                         "metadata"         => metadata } }
@@ -30,7 +29,6 @@ module Crowdtilt
     
     def update_json
       { "campaign" => { "title"            => title,
-                        "description"      => description,
                         "expiration_date"  => expiration_date,
                         "tilt_amount"      => tilt_amount, 
                         "metadata"         => metadata } }
